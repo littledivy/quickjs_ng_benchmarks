@@ -1,15 +1,34 @@
-## `sunspider_quickjs_ng`
+## `quickjs_ng_benchmarks`
 
-Running SunSpider on https://github.com/quickjs-ng/quickjs
+Benchmarking https://github.com/quickjs-ng/quickjs
+
+### Setup
 
 ```bash
 git clone https://github.com/littledivy/sunspider_quickjs_ng
 cd sunspider_quickjs_ng
 
 git clone https://github.com/quickjs-ng/quickjs
+
 cmake -B build
 cmake --build build
-./build/quickjs_bench
+```
+
+### Usage
+
+```bash
+./build/run_sunspider_like <folder>/ <filter>
+```
+Eg:
+
+```bash
+./build/run_sunspider_like kraken-1.0/ ai-astar
+```
+
+### SunSpider 1.0
+
+```bash
+./build/run_sunspider_like sunspider-1.0/
 ```
 
 ```
@@ -41,4 +60,42 @@ File: string-unpack-code, Execution Time: 0.0981 seconds
 File: string-validate-input, Execution Time: 0.0740 seconds
 
 Total (ms): 737.9240
+```
+
+### Kraken
+
+```bash
+./build/run_sunspider_like kraken-1.1/
+```
+
+```
+File: kraken-1.1/ai-astar-data.js, Execution Time: 0.0591 seconds
+File: kraken-1.1/ai-astar.js, Execution Time: 1.5074 seconds
+File: kraken-1.1/audio-beat-detection-data.js, Execution Time: 0.0072 seconds
+File: kraken-1.1/audio-beat-detection.js, Execution Time: 0.9267 seconds
+File: kraken-1.1/audio-dft-data.js, Execution Time: 0.0074 seconds
+File: kraken-1.1/audio-dft.js, Execution Time: 0.6062 seconds
+File: kraken-1.1/audio-fft-data.js, Execution Time: 0.0068 seconds
+File: kraken-1.1/audio-fft.js, Execution Time: 0.7826 seconds
+File: kraken-1.1/audio-oscillator-data.js, Execution Time: 0.0068 seconds
+File: kraken-1.1/audio-oscillator.js, Execution Time: 0.7542 seconds
+File: kraken-1.1/imaging-gaussian-blur-data.js, Execution Time: 0.0778 seconds
+File: kraken-1.1/imaging-gaussian-blur.js, Execution Time: 7.4164 seconds
+File: kraken-1.1/imaging-darkroom-data.js, Execution Time: 0.0790 seconds
+File: kraken-1.1/imaging-darkroom.js, Execution Time: 0.9969 seconds
+File: kraken-1.1/imaging-desaturate-data.js, Execution Time: 0.0780 seconds
+File: kraken-1.1/imaging-desaturate.js, Execution Time: 1.2369 seconds
+File: kraken-1.1/json-parse-financial-data.js, Execution Time: 0.0005 seconds
+File: kraken-1.1/json-parse-financial.js, Execution Time: 0.0772 seconds
+File: kraken-1.1/json-stringify-tinderbox-data.js, Execution Time: 0.0129 seconds
+File: kraken-1.1/json-stringify-tinderbox.js, Execution Time: 0.0800 seconds
+File: kraken-1.1/stanford-crypto-aes-data.js, Execution Time: 0.0133 seconds
+File: kraken-1.1/stanford-crypto-aes.js, Execution Time: 0.2977 seconds
+File: kraken-1.1/stanford-crypto-ccm-data.js, Execution Time: 0.0136 seconds
+File: kraken-1.1/stanford-crypto-ccm.js, Execution Time: 0.2351 seconds
+File: kraken-1.1/stanford-crypto-pbkdf2-data.js, Execution Time: 0.0019 seconds
+File: kraken-1.1/stanford-crypto-pbkdf2.js, Execution Time: 0.7815 seconds
+File: kraken-1.1/stanford-crypto-sha256-iterative-data.js, Execution Time: 0.0015 seconds
+File: kraken-1.1/stanford-crypto-sha256-iterative.js, Execution Time: 0.2267 seconds
+Total (ms): 16291.4090
 ```

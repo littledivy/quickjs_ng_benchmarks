@@ -5,4 +5,4 @@ project(quickjs_bench LANGUAGES C)
 add_subdirectory(quickjs)
 link_libraries(qjs)
 
-add_executable(quickjs_bench run_sunspider.c)
+add_executable(run_sunspider_like run_sunspider_like.c)

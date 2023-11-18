@@ -6,14 +6,8 @@
 
 double total = 0;
 
-int execute(JSContext *ctx, const char *filename) {
-    char *path = "sunspider-1.0/";
-    char *fullpath = malloc(strlen(path) + strlen(filename) + 3);
-    strcpy(fullpath, path);
-    strcat(fullpath, filename);
-    strcat(fullpath, ".js");
-
-    FILE *file = fopen(fullpath, "r");
+int Execute(JSContext *ctx, const char *filename) {
+    FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
         fprintf(stderr, "Error opening file: %s\n", filename);
@@ -53,7 +47,6 @@ int execute(JSContext *ctx, const char *filename) {
         printf("Error %s\n", JS_ToCString(ctx, JS_GetException(ctx)));
         JS_FreeValue(ctx, ret_val);
         free(buffer);
-        free(fullpath);
         return 1;
     }
 
@@ -61,18 +54,45 @@ int execute(JSContext *ctx, const char *filename) {
 
     JS_FreeValue(ctx, ret_val);
     free(buffer);
-    free(fullpath);
 
     return 0;
 }
 
-int main() {
+void RunTest(JSContext* ctx, char* path, char* buffer) {
+        char *fullpath = malloc(strlen(path) + strlen(buffer) + strlen("-data.js") + 1);
+
+        strcpy(fullpath, path);
+        strcat(fullpath, buffer);
+
+        strcat(fullpath, "-data.js");
+        if (Execute(ctx, fullpath) != 0) {
+            // Pass, only used for kraken.
+        }
+
+        fullpath[strlen(fullpath) - 8] = '\0';
+        strcat(fullpath, ".js");
+
+        if (Execute(ctx, fullpath) != 0) {
+            fprintf(stderr, "Error executing file: %s\n", buffer);
+        }
+}
+
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <benchmark folder> [optional: name]\n", argv[0]);
+        return 1;
+    }
+
     JSRuntime *rt = JS_NewRuntime();
     JSContext *ctx = JS_NewContext(rt);
 
     JS_SetMaxStackSize(rt, 864 * 1024); // 864 KB
 
-    const char *filename = "sunspider-1.0/LIST";
+    char *path = argv[1];
+    
+    char *filename = malloc(strlen(path) + strlen("LIST"));
+    strcpy(filename, path);
+    strcat(filename, "LIST");
     FILE *listFile = fopen(filename, "r");
 
     if (listFile == NULL) {
@@ -86,10 +106,12 @@ int main() {
         if (len > 0 && buffer[len - 1] == '\n') {
             buffer[len - 1] = '\0';
         }
-
-        if (execute(ctx, buffer) != 0) {
-            fprintf(stderr, "Error executing file: %s\n", buffer);
+        if (argc == 3 && strcmp(argv[2], buffer) != 0) {
+            printf("Skipping %s\n", buffer);
+            continue;
         }
+        RunTest(ctx, path, buffer);
+        JS_RunGC(rt);
     }
 
     printf("Total (ms): %.4f\n", total * 1000);
