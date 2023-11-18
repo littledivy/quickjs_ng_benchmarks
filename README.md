@@ -10,7 +10,7 @@ cd sunspider_quickjs_ng
 
 git clone https://github.com/quickjs-ng/quickjs
 
-cmake -B build
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_QJS_LIBC=ON
 cmake --build build
 ```
 
