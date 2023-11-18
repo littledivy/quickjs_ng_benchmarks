@@ -10,7 +10,6 @@ int Execute(JSContext *ctx, const char *filename) {
     FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
-        fprintf(stderr, "Error opening file: %s\n", filename);
         return 1;
     }
 
@@ -114,7 +113,7 @@ int main(int argc, char **argv) {
         JS_RunGC(rt);
     }
 
-    printf("Total (ms): %.4f\n", total * 1000);
+    printf("\nTotal (ms): %.4f\n", total * 1000);
 
     fclose(listFile);
     JS_FreeContext(ctx);

@@ -17,7 +17,11 @@ cmake --build build
 ### Usage
 
 ```bash
+# sunspider, kraken
 ./build/run_sunspider_like <folder>/ <filter>
+
+# octane
+./build/run_octane
 ```
 Eg:
 
@@ -97,5 +101,32 @@ File: kraken-1.1/stanford-crypto-pbkdf2-data.js, Execution Time: 0.0019 seconds
 File: kraken-1.1/stanford-crypto-pbkdf2.js, Execution Time: 0.7815 seconds
 File: kraken-1.1/stanford-crypto-sha256-iterative-data.js, Execution Time: 0.0015 seconds
 File: kraken-1.1/stanford-crypto-sha256-iterative.js, Execution Time: 0.2267 seconds
+
 Total (ms): 16291.4090
+```
+
+### Octane
+
+```bash
+./build/run_octane
+```
+
+```
+DeltaBlue           : 1060
+Crypto              : 1352
+RayTrace            : 1252
+EarleyBoyer         : 2329
+RegExp              : 301
+Splay               : 2497
+SplayLatency        : 8880
+NavierStokes        : 2730
+PdfJS               : 4452
+Mandreel            : 1332
+MandreelLatency     : 9775
+Gameboy             : 9208
+CodeLoad            : 19206
+Box2D               : 4329
+Typescript          : 17094
+----
+Score (version 9): 3291
 ```
